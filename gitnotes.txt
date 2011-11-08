@@ -1,0 +1,217 @@
+#getting started
+mkdir test && cd test/ && git init
+
+#creating first commit and commiting locally
+vi firstFile.txt
+git status
+git add firstFile.txt
+git commit -m "commiting my first file"
+
+#pushing changes to repo/remote
+git remote add origin git@github.com:simonjj/test.git
+git push origin master
+
+#making, commiting and pushing more changes
+vi README
+vi secondFile.txt
+git status
+git add README secondFile.txt
+git commit -m "adding some doc"
+git push origin master
+
+#tagging the first version of the pack
+git tag -a v0.98 -m "first version delivered to the customer"
+git show v0.98
+git describe --tags
+git push --tags
+
+#making more changes after customer feedback
+vi secondFile.txt 
+git status
+git add secondFile.txt
+git commit -m "further fixes and some small changes after customer feedback"
+git push origin master
+git describe --tags
+
+#more changes and new tag
+vi thirdFile.txt
+git add thirdFile.txt
+git commit -m "more customer induced changes"
+git describe --tags
+git push origin master
+git tag -a v1.0.0 -m "official v1 delivered to the customer"
+git push --tags
+
+#listing all tags
+git tag -l
+
+#making a destructive changes to a ZenPack
+git branch "zenoss-3.x"
+git branch "zenoss-4.x"
+git checkout zenoss-4.x
+vi firstFile.txt 
+git status
+git commit -m "making pack compatible with 4.x, breaking backwards compat. with 3.x"
+
+#merging changes back into trunk/master
+git checkout master
+git merge zenoss-4.x
+
+#unchanged old version
+git checkout zenoss-3.x
+git log
+
+#pushing changes
+git push origin master
+git push origin zenoss-3.x
+
+
+#other remotes
+git remote add upstream git@github.com:zenoss/ZenPacks.zenoss.GOM.git
+git fetch upstream
+git merge upstream/master
+#OR 
+git pull upsteam master
+
+
+
+
+
+
+# MORE STUFF
+# listing global config
+git config --global --list
+
+# three areas of config: 
+system: local git install dir (/usr/local/Cellar/git/1.7.5/etc/gitconfig)
+global: user homedir
+rep: .git
+
+# friendlier coloring
+git config --global color.ui auto
+
+# fix line endings
+git config --global core.autocrlf input
+
+# change commit editor
+git config --global core.editor "mate -w"
+
+# git init a new dir/project
+git init project1
+
+# stating for commit
+git add .
+git add newfile
+
+# commit changes
+git commit -m "some commit message"
+
+# adding changes one by another (interactively)
+git add -p first.groovy
+
+# more detail on commit 
+git commit -v
+
+# committing all the modified files
+git commit -a myfile.txt -m"mymessage"
+
+# changing last commit message (replacing last commit)
+git commit --amend
+
+# diffing between working, staging, repo
+git diff (diff between working and stageing)
+git diff --stage (diff between staging and repo)
+git diff HEAD (diff between working and repo)
+
+# getting a log with severity of commit
+git log --stat
+
+# showing all the changes
+git log -p
+
+# alternative log switches
+--diff-filter=A
+--pretty=raw
+-3
+--abbrev-commit
+
+# ignores
+target/ (target dirs only)
+output (anything that has output)
+!importat.log (track this)
+
+#removing files
+git rm yourfile.txt
+
+# undoing something (reseting) CODE might be lost
+git reset --hard 74c7c
+
+# show copied of moved files
+git log --stat -C (--find-copies-harder (sometimes needed))
+git log --stat -M
+
+# git clone works thorugh (file, ssh, http, git)
+git clone git://github.com/matthewmccullough/hellogitworld.git
+
+# pulling latest changes
+git pull
+
+# show remote repos
+git remote -v
+
+# add another repo
+git remote add anotherbox git://10.10.31.148/project2
+
+# push changes
+git push
+git push anotherbox
+
+#showing branches (showing all)
+git branch -a
+
+# pull = fetch + merge
+
+# find out how to get the diffs between (local, remote, uptream)
+git diff ....
+
+# navigating the tree
+333ABDD^ (commit prior to this)
+333ABDD^^ (two prior to this)
+333ABDD~5 (5 prior to this)
+master
+HEAD
+
+# tagging
+# list
+git tag
+#make
+git tag MYTAG
+
+#branching
+git branch olderstuff f089c978df6e46ba41939029ed76d47b360f33fe~3
+gitcheckout olderstuff
+
+#merge
+git merge olderstuff
+
+# resetting the HEAD to a new point
+git reflog
+git reset --hard f089c97
+git reflog
+git diff HEAD^
+git reset --hard 4fffbfe
+git diff HEAD^
+
+
+# RESOURCES 
+http://help.github.com/
+http://gitready.com/
+http://gitref.org/
+http://book.git-scm.com/
+
+
+
+
+
+
+
