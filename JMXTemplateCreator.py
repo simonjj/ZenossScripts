@@ -91,39 +91,8 @@ if __name__ == "__main__":
     data = readInTemplateFile(templateCranker.options.datasource_input_file)
     
     newTemplate = templateCranker.createTemplate()
-    entry = data[0]
-    templateCranker.createDatasourceAndHookup(newTemplate, entry[0], entry[2], entry[0])
+    for entry in data:
+        templateCranker.createDatasourceAndHookup(newTemplate, entry[0], entry[2], entry[0])
+    
     commit()
-
-
-"""
-# Copy old template to new template
-a.copyTemplate(ZenJMX, ZenJMX_Hotels_Cassandra)
-c.copyTemplate(template.uid, "/zport/dmd/Devices/ZenJMX_Hotels_Cassandra")
-
-# Add new template to a certain device class
-a.addTemplate("ZenJMX_Hotels_Cassandra ", "/zport/dmd/Devices/Server/SSH/Linux/Hotels.com/Production/Cassandra")
-
-# read in a file and parse it into an array
-myfile = open("/home/zenoss/templateCreations/hotels_cassandra_jmx.txt")
-lines = [l.strip() for l in myfile.readlines()]
-dsdata = []
-for l in lines:
-	dsdata.append(l.split()]
-
-def mystuff(t, dsname, dpname, gname, dsobjectname, dsattribute, type="JMX"):
-	from Products.Zuul.interfaces import IDataPointInfo, IRRDDataSourceInfo, IGraphInfo
-	print "working on %s" % dsname
-	nds = (IRRDDataSourceInfo(a.addDataSource(t.uid, dsname, type))
-	print "created datasource"
-	ndp = IDataPointInfo(a.addDataPoint(nds.uid, dpname))
-	print "created data point"
-	newT.addGraphDefinition(t.uid, gname)
-	ng = getGraphById(t, gname)
-	print "created graph def"
-	a.addDataPointToGraph(ndp.uid, ng.uid)
-	print "done"
-print "... done"
-
-"""
 
