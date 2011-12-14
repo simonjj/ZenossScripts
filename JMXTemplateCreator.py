@@ -56,12 +56,13 @@ class TemplateCreator(ZenScriptBase):
             
             
     def createJMXDatasourceAndHookup(self, t, dsname, dpname, 
-                                    gname, jmxoname, dstype="JMX"):
+                                    gname, jmxoname, jmxport, dstype="JMX"):
 	    self.log.debug("working on template %s, creating datasource %s" % (t.uid, dsname))
 	    dsname = prepId(dsname)
 	    a = self.api
 	    nds = IRRDDataSourceInfo(a.addDataSource(t.uid, dsname, dstype))
 	    nds.objectName = jmxoname
+	    nds.jmxPort = jmxport
 	    ndp = IDataPointInfo(a.addDataPoint(nds.uid, dpname))
 	    a.addGraphDefinition(t.uid, gname)
 	    ng = self.getGraphById(t, gname)
