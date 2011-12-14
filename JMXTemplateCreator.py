@@ -55,17 +55,17 @@ class TemplateCreator(ZenScriptBase):
             if graphid == g.id: return g
             
             
-    def createDatasourceAndHookup(self, t, dsname, dpname, 
-                                    gname, dstype="COMMAND"):
+    def createJMXDatasourceAndHookup(self, t, dsname, dpname, 
+                                    gname, jmxoname, dstype="JMX"):
 	    self.log.debug("working on template %s, creating datasource %s" % (t.uid, dsname))
 	    dsname = prepId(dsname)
 	    a = self.api
 	    nds = IRRDDataSourceInfo(a.addDataSource(t.uid, dsname, dstype))
+	    nds.objectName = jmxoname
 	    ndp = IDataPointInfo(a.addDataPoint(nds.uid, dpname))
 	    a.addGraphDefinition(t.uid, gname)
 	    ng = self.getGraphById(t, gname)
 	    a.addDataPointToGraph(ndp.uid, ng.uid)
-
         
     
     def buildOptions(self):
@@ -80,8 +80,6 @@ class TemplateCreator(ZenScriptBase):
                     dest="target_template_name", default=None,
                     help="where should the new template be created")
         
-        
-
 
 
 
@@ -92,7 +90,7 @@ if __name__ == "__main__":
     
     newTemplate = templateCranker.createTemplate()
     for entry in data:
-        templateCranker.createDatasourceAndHookup(newTemplate, entry[0], entry[2], entry[0])
+        templateCranker.createDatasourceAndHookup(newTemplate, entry[0], entry[2], entry[0], entry[1])
     
     commit()
 
