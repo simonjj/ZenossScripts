@@ -90,7 +90,7 @@ if __name__ == "__main__":
     
     newTemplate = templateCranker.createTemplate()
     for entry in data:
-        templateCranker.createDatasourceAndHookup(newTemplate, entry[0], entry[2], entry[0], entry[1])
+        templateCranker.createJMXDatasourceAndHookup(newTemplate, entry[0], entry[2], entry[0], entry[1])
     
     commit()
 
