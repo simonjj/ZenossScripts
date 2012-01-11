@@ -12,6 +12,23 @@
 #
 ###########################################################################
 
+#TODO:
+# - add testing and evaluation for other threshold types
+#
+
+
+# Running the script in test mode (test an expression against a value):
+# thresholdtester.py --value=123 --min="here.hw.totalMemory * 0.1" --device=localhost
+
+# more information to the types of variables for thresholds can be found here:
+# 
+
+
+# Running the script in eval mode (test an existing device and a existing template):
+# thresholdtester.py --template=/zport/dmd/Devices/Server/Linux/rrdTemplates/Device --device=localhost --mode=eval
+
+
+
 
 import Globals
 from Products.ZenUtils.ZenScriptBase import ZenScriptBase
