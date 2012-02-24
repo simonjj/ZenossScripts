@@ -62,13 +62,14 @@ class EventModder(ZenScriptBase):
                        "prodState"   :["1000"],
                        "lastTime"    :time}
 	    result = self.api.query(limit, start, sort, dir, filters)
-	    events = None
+	    events = []
 	    if result['total'] > 0:
 		    count = result['total']
 		    events = result['data']
 		    self.log.debug("found %s events for filter %s" % (count, filters))
 	    else:
 		    self.log.error("not result returned for query: %s" % filters)
+		
         return [e['evid'] for e in events]
 
 
